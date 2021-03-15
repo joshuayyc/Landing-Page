@@ -105,7 +105,7 @@ function timerFunction (timer) {
     if (timer !==null) {
         clearTimeout(timer);
     }
-    timer = setTimeout(hideNav, 5000);
+    timer = setTimeout(hideNav, 10000);
 }
 
 function visibleNav () {

@@ -1,13 +1,15 @@
 # Landing Page Project
+Description: The goal of this project was to transform a static page to an interactive landing page. This required modifications of HTML, CSS and Javascript files.
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Installation](#Installation)
+* [Creators](#Creators)
 
-## Instructions
+## Installation
+* clone the project using $git clone
+* open the index.html file in a browser
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+## Creators:
+* Josh C
+* [https://github.com/joshuayyc](https://github.com/joshuayyc)
