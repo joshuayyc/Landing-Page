@@ -13,28 +13,24 @@
  *
 */
 
-/**
- * Define Global Variables
- *
-*/
-
-document.addEventListener('scroll', changeActiveClass)
-/**
- * End Global Variables
- * Start Helper Functions
- *
-*/
-
-window.addEventListener('load', (e) => {
-  console.log('page is fully loaded');
+// Define Event Listeners
+window.addEventListener('load', function(e) {
+    e.preventDefault();
+    console.log('page is fully loaded');
+    createNav();
+    navAppearStatus();
+    document.querySelector('button').hidden=true;
 });
 
-/**
- * End Helper Functions
- * Begin Main Functions
- *let offset = section.getBoundingClientRect().top - window.innerHeight - getTranslate(section).y;
-let limit = offset + section.getBoundingClientRect().height + window.innerHeight;
-*/
+window.addEventListener('scroll', function() {
+    changeActiveClass();
+    navAppearStatus();
+    document.querySelector('button').hidden=false;
+});
+
+document.getElementById('button-top').addEventListener('click', scrolltop);
+
+// Define Main Functions - LOAD
 function createNav () {
     const navBar = document.getElementById('navbar__list');
     // For loop - automatically builds NAV depending on number of sections
@@ -43,53 +39,54 @@ function createNav () {
       navBar.appendChild(list);
       let link = document.createElement('a');
       list.appendChild(link);
-      link.outerHTML=`<a href='#section${i+1}' class='menu__link'>Section${i+1}</a>`;
+      link.outerHTML=`<a href='#section${i+1}' class='menu__link' id=''>Section${i+1}</a>`;
     }
 }
 
-createNav();
-
-
+// Define Main Functions - SCROLLING
 // Add class 'active' to SECTION when near top of viewport (adds to nav links)
-function changeActiveClass (e) {
-    e.preventDefault();
-    console.log("test")
+function changeActiveClass (){
     for (i=0; i<document.querySelectorAll('section').length; i++) {
         let sectionViewPort = document.querySelector(`#section${i+1}`).getBoundingClientRect().y;
-        if ((sectionViewPort>-400) & (sectionViewPort<150)) {
-          // if ((sectionViewPort>-515) & (sectionViewPort<185)) {
-            console.log("Section View Port in range");
-            console.log("current y axis is"+sectionViewPort);
-            document.querySelector(`#section${i+1}`).className = "your-active-class";
-        }
-        else {
-            document.querySelector(`#section${i+1}`).className ="";
-        }
+            if ((sectionViewPort>-300) & (sectionViewPort<300)) {
+                // console.log("Section View Port in range");
+                // console.log("current y axis is"+sectionViewPort);
+                document.querySelector(`#section${i+1}`).className = "your-active-class";
+            }
+            else {
+                document.querySelector(`#section${i+1}`).className ="";
+            }
     }
-
     // Add class 'active' to NAV LINK when near top of viewport (adds to nav links)
     // Note: the default class for the nav link is menu__link
     for (i=0; i<document.querySelectorAll('section').length; i++) {
         let sectionViewPort = document.querySelector(`#section${i+1}`).getBoundingClientRect().y;
-        if ((sectionViewPort>-400) & (sectionViewPort<150)) {
+        if ((sectionViewPort>-300) & (sectionViewPort<300)) {
             document.getElementById('navbar__list').children[i].children[0].id ="active";
         }
         else {
-            document.getElementById('navbar__list').children[i].children[0].id ="";
+            document.getElementById('navbar__list').children[i].children[0].id="inactive";
         }
     }
 }
 
+// Function to scroll page to top once y-axis below 224 for h1 element
+function scrolltop () {
+      console.log("clicked");
+      document.body.scrollTop = 0; // Scrolls to top For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
 
-// Scroll to anchor ID using scrollTO event
-/**
- * End Main Functions
- * Begin Events
- *
-*/
+// Define Helper Functions
+function navAppearStatus () {
+    visibleNav();
+    setTimeout(hideNav, 5000);
+}
 
-// Build menu
+function hideNav () {
+    document.getElementsByClassName('navbar__menu')[0].hidden=true;
+}
 
-// Scroll to section on link click
-
-// Set sections as active
+function visibleNav () {
+    document.getElementsByClassName('navbar__menu')[0].hidden=false;
+}
