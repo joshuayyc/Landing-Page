@@ -19,16 +19,17 @@ window.addEventListener('load', function(e) {
     e.preventDefault();
     console.log('page is fully loaded');
     createNav();
-    navAppearStatus();
     hideButton();
     collapseElements();
+    timerFunction();
 });
 
 // Runs on Scroll
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function(e) {
+    e.preventDefault();
     changeActiveClass();
-    navAppearStatus();
     appearButton();
+    timerFunction();
 });
 
 // Runs on button-top click
@@ -77,7 +78,6 @@ function changeActiveClass (){
 
 // Function to scroll page to top once y-axis below 224 for h1 element
 function scrolltop () {
-    console.log("clicked");
     document.body.scrollTop = 0; // Scrolls to top For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
@@ -99,17 +99,23 @@ function collapseElements () {
 }
 
 // Define Helper Functions
-function navAppearStatus () {
+let timer = null;
+function timerFunction (timer) {
     visibleNav();
-    setTimeout(hideNav, 5000);
-}
-
-function hideNav () {
-    document.getElementsByClassName('navbar__menu')[0].hidden=true;
+    if (timer !==null) {
+        clearTimeout(timer);
+    }
+    timer = setTimeout(hideNav, 5000);
 }
 
 function visibleNav () {
-    document.getElementsByClassName('navbar__menu')[0].hidden=false;
+    let navMenu1 = document.getElementsByClassName('navbar__menu');
+    navMenu1[0].hidden=false;
+}
+
+function hideNav () {
+    let navMenu2 = document.getElementsByClassName('navbar__menu');
+    navMenu2[0].hidden=true;
 }
 
 function hideButton () {
@@ -117,5 +123,11 @@ function hideButton () {
 }
 
 function appearButton() {
-  document.querySelector('#button-top').hidden=false;
+    if (document.body.scrollTop || document.documentElement.scrollTop === 0) {
+        document.querySelector('#button-top').hidden=true;
+        setTimeout(hideButton, 10000);
+    }
+    else {
+        document.querySelector('#button-top').hidden=false;
+    }
 }
