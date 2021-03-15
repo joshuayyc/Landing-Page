@@ -88,6 +88,13 @@ section {
     transition: ease 0.3s all;
 }
 
+/* id set for each nav link when activated by section */
+#active {
+  background-color: rgb(100,200,250);
+  color: white;
+  transition: ease 0.3s all;
+}
+
 /* Header Styles */
 .page__header {
     background: #fff;
