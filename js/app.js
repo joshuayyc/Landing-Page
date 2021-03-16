@@ -58,9 +58,11 @@ function createNav () {
             e.preventDefault();
             const eventID = linkview.dataset.nav;
             console.log(eventID);
-            document.getElementById(`${eventID}`).scrollIntoView();
-          });
-      }
+            document.getElementById(`${eventID}`).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    }
 }
 
 // Define Main Functions - SCROLLING
@@ -100,8 +102,13 @@ function changeActiveClass (){
 
 // Function to scroll page to top once y-axis below 224 for h1 element
 function scrolltop () {
-    document.body.scrollTop = 0; // Scrolls to top For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    // document.body.scrollTop = 0; // Scrolls to top For Safari
+    // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+    });
 }
 
 //  Function to toggle

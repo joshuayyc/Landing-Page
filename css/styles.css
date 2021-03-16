@@ -11,9 +11,9 @@
 
 /* ---- Base Rules ---- */
 /* Creates smooth scrolling behavior throughout page */
-html {
+/* html {
     scroll-behavior: smooth;
-}
+} */
 
 
 body {
