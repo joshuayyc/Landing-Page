@@ -35,43 +35,65 @@ window.addEventListener('scroll', function(e) {
 // Runs on button-top click
 document.getElementById('button-top').addEventListener('click', scrolltop);
 
+
 // Define Main Functions - LOAD
 function createNav () {
     const navBar = document.getElementById('navbar__list');
     // For loop - automatically builds NAV depending on number of sections
-    for (var i=0; i<document.querySelectorAll('section').length; i++) {
+    for (let i=0; i<document.querySelectorAll('section').length; i++) {
         let list = document.createElement('li');
         navBar.appendChild(list);
+        list.classList.add('menu__list');
         let link = document.createElement('a');
+        link.classList.add('menu__link');
+        link.innerHTML=`Section${i+1}`;
+        link.id = `link${i+1}`;
+        link.setAttribute('data-nav',`section${i+1}`);
         list.appendChild(link);
-        link.outerHTML=`<a href='#section${i+1}' class='menu__link' id=''>Section${i+1}</a>`;
     }
+
+    for (let i=0; i<document.querySelectorAll('section').length; i++) {
+        const linkview = document.querySelector(`#link${i+1}`);
+            linkview.addEventListener('click', function(e) {
+            e.preventDefault();
+            const eventID = linkview.dataset.nav;
+            console.log(eventID);
+            document.getElementById(`${eventID}`).scrollIntoView();
+          });
+      }
 }
 
 // Define Main Functions - SCROLLING
 // Add class 'active' to SECTION when near top of viewport (adds to nav links)
 function changeActiveClass (){
-    for (var i=0; i<document.querySelectorAll('section').length; i++) {
+    for (let i=0; i<document.querySelectorAll('section').length; i++) {
         let sectionViewPort = document.querySelector(`#section${i+1}`).getBoundingClientRect().y;
         if ((sectionViewPort>-300) & (sectionViewPort<300)) {
             // console.log("Section View Port in range");
             // console.log("current y axis is"+sectionViewPort);
-            document.querySelector(`#section${i+1}`).className = "your-active-class";
+            // document.querySelector(`#section${i+1}`).className = "your-active-class";
+            document.querySelector(`#section${i+1}`).classList.add("your-active-class");
+
         }
         else {
-            document.querySelector(`#section${i+1}`).className ="";
+            // document.querySelector(`#section${i+1}`).className ="";
+            document.querySelector(`#section${i+1}`).classList.remove("your-active-class");
+
         }
     }
 
     // Add class 'active' to NAV LINK when near top of viewport (adds to nav links)
     // Note: the default class for the nav link is menu__link
-    for (var i=0; i<document.querySelectorAll('section').length; i++) {
+    for (let i=0; i<document.querySelectorAll('section').length; i++) {
         let sectionViewPort = document.querySelector(`#section${i+1}`).getBoundingClientRect().y;
         if ((sectionViewPort>-300) & (sectionViewPort<300)) {
-            document.getElementById('navbar__list').children[i].children[0].id ="active";
+            // document.getElementById('navbar__list').children[i].children[0].id ="active";
+            document.getElementById('navbar__list').children[i].children[0].classList.add("active");
         }
         else {
-            document.getElementById('navbar__list').children[i].children[0].id="inactive";
+            // document.getElementById('navbar__list').children[i].children[0].id="inactive";
+            document.getElementById('navbar__list').children[i].children[0].classList.remove("active");
+
         }
     }
 }
